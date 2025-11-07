@@ -76,8 +76,8 @@ jobs:
     - name: Recovery Padavan files download from remote
       run: |
         #cp -r Padavan  $WORK_PATH/
-        #cd Padavan
-        #sh install_Padavan-Setconfig.sh
+        cd Padavan
+        sh install_Padavan-Setconfig.sh
 
     - name: Recovery config bin files download from remote
       if: github.event.inputs.config == 'true'
