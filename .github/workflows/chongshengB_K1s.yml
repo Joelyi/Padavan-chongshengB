@@ -36,7 +36,7 @@ jobs:
     if: github.event.repository.owner.id == github.event.sender.id
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@master
       
     - name: Initialization environment
       env:
@@ -52,10 +52,10 @@ jobs:
       run: |
         git clone --depth=1 $REPOSITORY_URL $WORK_PATH
         cd  $WORK_PATH/toolchain-mipsel
-        #sh dl_toolchain.sh
-        curl -O -L  $TOOLCHAIN_URL
-        mkdir -p toolchain-3.4.x
-        tar -xvf mipsel-linux-uclibc.tar.xz -C toolchain-3.4.x
+        sh dl_toolchain.sh
+        #curl -O -L  $TOOLCHAIN_URL
+        #mkdir -p toolchain-3.4.x
+        #tar -xvf mipsel-linux-uclibc.tar.xz -C toolchain-3.4.x
         mkdir -p /opt/images/
 
     - name: Set busybox's version to compile
