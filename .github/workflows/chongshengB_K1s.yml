@@ -82,6 +82,8 @@ jobs:
     - name: Recovery config bin files download from remote
       if: github.event.inputs.config == 'true'
       run: |
+        cd $WORK_PATH/trunk/configs/boards
+        mkdir PSG1208s
         cp -f $TNAME/PSG1208s.config $WORK_PATH/trunk/configs/templates/PSG1208s.config
         cp -f $TNAME/board.h $WORK_PATH/trunk/configs/boards/PSG1208s/board.h
         cp -f $TNAME/board.mk $WORK_PATH/trunk/configs/boards/PSG1208s/board.mk
