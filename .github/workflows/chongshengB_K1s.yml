@@ -28,7 +28,7 @@ on:
 
 env:
   REPOSITORY_URL: https://github.com/Yh793/rt-n56u.git
-  TOOLCHAIN_URL: https://github.com/vb1980/Padavan_CI/raw/main/toolchain/mipsel-linux-uclibc.tar.xz
+  TOOLCHAIN_URL: https://github.com/Yh793/Padavan-build/raw/master/mipsel-linux-uclibc.tar.xz
   WORK_PATH: /opt/rt-n56u
   TIME_ZONE: Asia/Shanghai
   TNAME: PSG1208s
@@ -71,6 +71,10 @@ jobs:
 
     - name: Recovery Padavan files download from remote
       run: |
+        cd /opt/rt-n56u/trunk/tools
+        sed -i '34,40s/^/#/' ./Makefile
+        cd /opt/rt-n56u/trunk/user/rc
+        sed -i '/DNS_RELAY_CACHE_MAX/d' ./services_ex.c
         #cp -f Padavan/tools/Makefile $WORK_PATH/trunk/tools/Makefile
         #cp -r Padavan  $WORK_PATH/
         #cd Padavan
