@@ -21,7 +21,7 @@ on:
       theme:
         type: boolean
         description: '是否替换主题文件'
-        default: 'false'
+        default: 'true'
 
 env:
   REPOSITORY_URL: https://github.com/chongshengB/rt-n56u.git
@@ -96,10 +96,10 @@ jobs:
     - name: Recovery config theme files download from remote
       if: github.event.inputs.theme == 'true'
       run: |
-        cp -r theme  $WORK_PATH/
-        sudo rm -rf $WORK_PATH/trunk/user/www/n56u_ribbon_fixed/bootstrap
-        sudo rm -rf $WORK_PATH/trunk/user/www/n56u_ribbon_fixed/images
-        cp -rf theme/. $WORK_PATH/trunk/user/www/n56u_ribbon_fixed
+        #sudo rm -rf $WORK_PATH/trunk/user/www/n56u_ribbon_fixed/bootstrap
+        #sudo rm -rf $WORK_PATH/trunk/user/www/n56u_ribbon_fixed/images
+        #cp -rf theme/. $WORK_PATH/trunk/user/www/n56u_ribbon_fixed
+        cp -f theme/Shadowsocks.asp $WORK_PATH/trunk/user/www/n56u_ribbon_fixed/Shadowsocks.asp
         echo "复制主题文件结束"  
 
     - name: Build firmware
