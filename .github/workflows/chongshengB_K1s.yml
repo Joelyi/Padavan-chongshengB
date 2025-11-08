@@ -24,7 +24,7 @@ on:
         default: 'true'
 
 env:
-  REPOSITORY_URL: https://github.com/chongshengB/rt-n56u.git
+  REPOSITORY_URL: chongshengB https://github.com/Yh793/rt-n56u.git
   TOOLCHAIN_URL: https://github.com/vb1980/Padavan_CI/raw/main/toolchain/mipsel-linux-uclibc.tar.xz
   WORK_PATH: /opt/rt-n56u
   TIME_ZONE: Asia/Shanghai
