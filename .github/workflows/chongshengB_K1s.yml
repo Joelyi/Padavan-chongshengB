@@ -67,7 +67,7 @@ jobs:
 
     - name: Recovery Padavan files download from remote
       run: |
-        cp -f Padavan/tools/Makefile $WORK_PATH/trunk/tools/Makefile
+        #cp -f Padavan/tools/Makefile $WORK_PATH/trunk/tools/Makefile
         #cp -r Padavan  $WORK_PATH/
         #cd Padavan
         #sh install_Padavan-Setconfig.sh
