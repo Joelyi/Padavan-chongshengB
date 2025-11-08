@@ -62,12 +62,6 @@ jobs:
         tar -xvf mipsel-linux-uclibc.tar.xz -C toolchain-3.4.x
         mkdir -p /opt/images/
 
-#    - name: Set golang
-#      run: |
-#        cp -f bashScripts/go.sh $(pwd)
-#        sudo chmod 777 ./go.sh
-#        bash ./go.sh
-
     - name: Set busybox's version to compile
       run: |
         cd $WORK_PATH/trunk/user/busybox
@@ -75,11 +69,11 @@ jobs:
         cd $WORK_PATH/trunk
         sed -i "s/busybox_id=.*/busybox_id=\"${{ github.event.inputs.busyboxver }}\"/g" ./build_firmware_modify
 
-    - name: Recovery Padavan files download from remote
-      run: |
+#    - name: Recovery Padavan files download from remote
+#      run: |
         #cp -r Padavan  $WORK_PATH/
-        cd Padavan
-        sh install_Padavan-Setconfig.sh
+        #cd Padavan
+        #sh install_Padavan-Setconfig.sh
 
     - name: newly build PSG1208s
       run: |
