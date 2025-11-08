@@ -24,7 +24,7 @@ on:
         default: 'true'
 
 env:
-  REPOSITORY_URL: chongshengB https://github.com/Yh793/rt-n56u.git
+  REPOSITORY_URL: https://github.com/Yh793/rt-n56u.git
   TOOLCHAIN_URL: https://github.com/vb1980/Padavan_CI/raw/main/toolchain/mipsel-linux-uclibc.tar.xz
   WORK_PATH: /opt/rt-n56u
   TIME_ZONE: Asia/Shanghai
@@ -50,7 +50,7 @@ jobs:
         
     - name: Clone source code
       run: |
-        git clone --depth=1 $REPOSITORY_URL $WORK_PATH
+        git clone -b chongshengB --depth=1 $REPOSITORY_URL $WORK_PATH
         cd  $WORK_PATH/toolchain-mipsel
         sh dl_toolchain.sh
         #curl -O -L  $TOOLCHAIN_URL
