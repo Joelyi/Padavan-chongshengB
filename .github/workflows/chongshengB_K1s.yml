@@ -22,6 +22,9 @@ on:
         type: boolean
         description: '是否替换主题文件'
         default: 'true'
+  push:
+    tags:
+      - "v*"
 
 env:
   REPOSITORY_URL: https://github.com/Yh793/rt-n56u.git
@@ -41,6 +44,7 @@ jobs:
     - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
+        token: ${{ secrets.GITHUB_TOKEN }}
       run: |
         sudo apt-get update
         sudo apt-get -y install unzip libtool-bin curl cmake gperf gawk flex bison nano xxd fakeroot \
