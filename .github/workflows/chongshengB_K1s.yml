@@ -113,7 +113,7 @@ jobs:
           cp -rf theme/. $WORK_PATH/trunk/user/www/n56u_ribbon_fixed
           echo "复制主题文件结束"  
       - name: Recovery asp files download from remote
-        if: github.event.inputs.wifi == 'true'
+        if: github.event.inputs.asp == 'true'
         run: |
           cp -f asp/Advanced_smartdns.asp $WORK_PATH/trunk/user/www/n56u_ribbon_fixed/Advanced_smartdns.asp
       - name: Recovery wifi files download from remote
