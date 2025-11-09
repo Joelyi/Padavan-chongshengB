@@ -79,11 +79,6 @@ jobs:
           sed -i '34,40s/^/#/' ./Makefile
           cd /opt/rt-n56u/trunk/user/rc
           sed -i '/DNS_RELAY_CACHE_MAX/d' ./services_ex.c
-          
-      - name: newly build PSG1208s
-        run: |
-          cd $WORK_PATH/trunk/configs/boards
-          mkdir PSG1208s
         
       - name: Recovery Padavan files download from remote
         if: github.event.inputs.padavanbin == 'true'
@@ -94,9 +89,9 @@ jobs:
         if: github.event.inputs.config == 'true'
         run: |
           cp -f $TNAME/PSG1208s.config $WORK_PATH/trunk/configs/templates/PSG1208s.config
-          cp -f $TNAME/board.h $WORK_PATH/trunk/configs/boards/PSG1208s/board.h
-          cp -f $TNAME/board.mk $WORK_PATH/trunk/configs/boards/PSG1208s/board.mk
-          cp -f $TNAME/kernel-3.4.x.config $WORK_PATH/trunk/configs/boards/PSG1208s/kernel-3.4.x.config
+          cp -f $TNAME/board.h $WORK_PATH/trunk/configs/boards/PSG1208/board.h
+          cp -f $TNAME/board.mk $WORK_PATH/trunk/configs/boards/PSG1208/board.mk
+          cp -f $TNAME/kernel-3.4.x.config $WORK_PATH/trunk/configs/boards/PSG1208/kernel-3.4.x.config
           #cd $WORK_PATH/trunk/tools
           #sed -i "s#1.15.2#1.17.1#g" ./Makefile
           #sed -i "s#https://golang.google.cn/dl#https://dl.google.com/go#g" ./Makefile
