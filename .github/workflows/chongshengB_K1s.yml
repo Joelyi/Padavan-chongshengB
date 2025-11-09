@@ -27,10 +27,6 @@ on:
         type: boolean
         description: '是否替换主题文件'
         default: 'false'
-      asp:
-        type: boolean
-        description: '是否替换界面文件'
-        default: 'true'
       wifi:
         type: boolean
         description: '是否替换wifi文件'
@@ -94,6 +90,10 @@ jobs:
         run: |
           cd Padavan
           sh install_Padavan-Setconfig.sh
+      - name: Recovery asp files download from remote
+        if: github.event.inputs.padavanbin == 'true'
+        run: |
+          cp -f asp/Advanced_smartdns.asp $WORK_PATH/trunk/user/www/n56u_ribbon_fixed/Advanced_smartdns.asp
       - name: Recovery bin files download from remote
         if: github.event.inputs.config == 'true'
         run: |
