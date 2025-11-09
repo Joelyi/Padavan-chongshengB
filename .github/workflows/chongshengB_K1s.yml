@@ -237,5 +237,5 @@ jobs:
         uses: actions/upload-artifact@main
         if: env.BUILDDONE == 'success'
         with:
-          name: chongshengB_K2-Padavan-packages
+          name: chongshengB_K1s-Padavan-packages
           path: /opt/images
