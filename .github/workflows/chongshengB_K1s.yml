@@ -79,6 +79,11 @@ jobs:
           sed -i '34,40s/^/#/' ./Makefile
           cd /opt/rt-n56u/trunk/user/rc
           sed -i '/DNS_RELAY_CACHE_MAX/d' ./services_ex.c
+
+      - name: newly build PSG1208s
+        run: |
+          cd $WORK_PATH/trunk/configs/boards
+          mkdir PSG1208s
         
       - name: Recovery Padavan files download from remote
         if: github.event.inputs.padavanbin == 'true'
