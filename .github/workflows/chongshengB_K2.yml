@@ -84,7 +84,7 @@ jobs:
         if: github.event.inputs.padavanbin == 'true'
         run: |
           cd Padavan
-          sh install_wifi.sh
+          sh install_Padavan-Setconfig.sh
       - name: Recovery bin files download from remote
         if: github.event.inputs.config == 'true'
         run: |
