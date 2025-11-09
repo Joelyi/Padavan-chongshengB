@@ -15,9 +15,9 @@ on:
         - 1.24.x
         - 1.34.1
         default: '1.24.x'
-      wifi:
+      padavanbin:
         type: boolean
-        description: '是否替换wifi文件'
+        description: '是否替换编译文件'
         default: 'true'
       config:
         type: boolean
@@ -27,10 +27,20 @@ on:
         type: boolean
         description: '是否替换主题文件'
         default: 'true'
+      wifi:
+        type: boolean
+        description: '是否替换wifi文件'
+        default: 'true'
   push:
     tags:
       - "v*"
 
+env:
+  REPOSITORY_URL: https://github.com/chongshengB/rt-n56u.git
+  TOOLCHAIN_URL: https://github.com/Yh793/Padavan-build/raw/master/mipsel-linux-uclibc.tar.xz
+  WORK_PATH: /opt/rt-n56u
+  TNAME: PSG1218
+  
 jobs:
   build:
     runs-on: ubuntu-22.04
@@ -38,6 +48,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-go@v3
+        with:
+          go-version: '^1.18.6'
         env:
           token: ${{ secrets.R_TOKEN }}
       - name: Prepare
@@ -50,9 +63,9 @@ jobs:
           
       - name: Clone source code
         run: |
-          git clone --depth=1 https://github.com/chongshengB/rt-n56u.git /opt/rt-n56u
-          cd /opt/rt-n56u/toolchain-mipsel
-          curl -O -L  https://github.com/Yh793/Padavan-build/raw/master/mipsel-linux-uclibc.tar.xz
+          git clone --depth=1 $REPOSITORY_URL $WORK_PATH
+          cd /$WORK_PATH/toolchain-mipsel
+          curl -O -L  $TOOLCHAIN_URL
           mkdir -p toolchain-3.4.x
           tar -xvf mipsel-linux-uclibc.tar.xz -C toolchain-3.4.x
           #sh dl_toolchain.sh
@@ -67,21 +80,26 @@ jobs:
           cd /opt/rt-n56u/trunk/user/rc
           sed -i '/DNS_RELAY_CACHE_MAX/d' ./services_ex.c
 
-      - name: Recovery wifi files download from remote
-        if: github.event.inputs.wifi == 'true'
+      - name: Recovery Padavan files download from remote
+        if: github.event.inputs.padavanbin == 'true'
         run: |
-          cd Padavan/wifi
+          cd Padavan
           sh install_wifi.sh
       - name: Recovery bin files download from remote
         if: github.event.inputs.config == 'true'
         run: |
-          cd PSG1218
+          cd $TNAME
           sh install_Setconfig.sh
       - name: Recovery theme files download from remote
         if: github.event.inputs.theme == 'true'
         run: |
-          cd Padavan/touming-Theme
+          cd Theme
           sh install_Theme.sh
+      - name: Recovery wifi files download from remote
+        if: github.event.inputs.wifi == 'true'
+        run: |
+          cd wifi
+          sh install_wifi.sh
 
       - name: Get current time
         uses: josStorer/get-current-time@v2.0.2
@@ -91,10 +109,8 @@ jobs:
           utcOffset: "+08:00"
 
       - name: Build Firmware
-        env:
-          TNAME: PSG1218 #PSG1218 K2P-5.0 K2P K2P_nano K2P_nano-5.0 PSG1208 PSG1218_nano
         run: |
-          cd /opt/rt-n56u/trunk
+          cd $WORK_PATH/trunk
           if [ ! -f configs/templates/$TNAME.config ] ; then
           echo "configs/templates/$TNAME.config not found "
           exit 1
@@ -201,7 +217,7 @@ jobs:
           #########################################################################################
           sudo ./clear_tree
           sudo ./build_firmware_modify $TNAME 0
-          sudo mv -f images/*.trx /opt/images/${TNAME}_Yh793-ChongshengB_${{ steps.current-time.outputs.formattedTime }}.trx
+          sudo mv -f images/*.trx /opt/images/${TNAME}_ChongshengB_${{ steps.current-time.outputs.formattedTime }}.trx
           cp -f .config /opt/images/${TNAME}.config
           echo "FNAME=$TNAME" >> $GITHUB_ENV
           echo "BUILDDONE=success" >> $GITHUB_ENV
