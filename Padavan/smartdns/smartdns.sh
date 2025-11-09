@@ -310,33 +310,6 @@ Check_ip_addr () {
 }
 
 
-Change_adbyby () {
-# 【】
-    if [ "$adbyby_process"x != x ] && [ $(nvram get adbyby_enable) = 1 ] ; then
-    case $sdns_enable in
-    0)
-        if [ $(nvram get adbyby_add) = 1 ] && [ "$hosts_type" != "Dnsmasq" ]; then
-            nvram set adbyby_add=0
-            /usr/bin/adbyby.sh switch
-            logger -t "SmartDNS" "DNS 去广告规则: SmartDNS ⇒ Dnsmasq"
-            hosts_type="Dnsmasq"
-        fi
-        ;;
-    1)
-        if [ "$hosts_type" != "SmartDNS" ] && [ "$action" = "start" ] ; then
-            if [ "$sdns_port" = "53" ] || [ $(nvram get adbyby_add) = 1 ] || [ "$snds_redirect" = "2" ] ; then
-                nvram set adbyby_add=1
-                /usr/bin/adbyby.sh switch
-                logger -t "SmartDNS" "DNS 去广告规则: Dnsmasq ⇒ SmartDNS"
-                hosts_type="SmartDNS"
-            fi
-        fi
-        ;;
-    esac
-    fi
-}
-
-
 Change_dnsmasq () {
     # 删除 dnsmasq 配置文件中的相关项，避免重复
     case $action in
@@ -418,7 +391,6 @@ Start_smartdns () {
     [ "$sdns_enable" -eq 0 ] && nvram set sdns_enable=1 && sdns_enable=1
     [ $(pidof smartdns | awk '{ print $1 }')x != x ] && killall -9 smartdns >/dev/null 2>&1
     Change_dnsmasq
-    Change_adbyby
     echo "$hosts_type" >> "$smartdns_Ini"
     [ "$snds_redirect" = 0 ] && logger -t "SmartDNS" "SmartDNS 使用 $sdns_port 端口"
     Change_iptable
@@ -519,15 +491,6 @@ Main () {
                 logger -t "SmartDNS" "重启 ．．．"
                 ;;
             esac
-        fi
-        Stop_smartdns
-        ;;
-    restart)
-        if [ $(nvram get adbyby_enable) = 1 ] ; then
-            [ $(nvram get adbyby_add) = 1 ] && hosts_type="SmartDNS"
-            [ $(nvram get adbyby_add) = 0 ] && hosts_type="Dnsmasq"
-        else
-            hosts_type="0"
         fi
         Check_ss
         Start_smartdns
