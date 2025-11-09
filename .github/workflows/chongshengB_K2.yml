@@ -8,6 +8,25 @@ on:
         description: "Build Padavan"
         required: true
         default: "build"
+      busyboxver:
+        type: choice
+        description: 'busybox''s version'
+        options:
+        - 1.24.x
+        - 1.34.1
+        default: '1.24.x'
+      wifi:
+        type: boolean
+        description: '是否替换wifi文件'
+        default: 'true'
+      config:
+        type: boolean
+        description: '是否替换配置文件'
+        default: 'true'
+      theme:
+        type: boolean
+        description: '是否替换主题文件'
+        default: 'true'
   push:
     tags:
       - "v*"
@@ -28,6 +47,7 @@ jobs:
           sudo apt install libtool-bin gperf python3-docutils autopoint gettext ccache
           # https://github.com/actions/setup-go/issues/107
           echo "${GOROOT}/bin" >> $GITHUB_PATH
+          
       - name: Clone source code
         run: |
           git clone --depth=1 https://github.com/chongshengB/rt-n56u
@@ -37,6 +57,7 @@ jobs:
           tar -xvf mipsel-linux-uclibc.tar.xz -C toolchain-3.4.x
           #sh dl_toolchain.sh
           mkdir -p /opt/images/
+          
       - name: adapt project
         run: |
           cd /opt/rt-n56u/trunk/user/adguardhome
@@ -47,14 +68,17 @@ jobs:
           sed -i '/DNS_RELAY_CACHE_MAX/d' ./services_ex.c
 
       - name: Recovery wifi files download from remote
+        if: github.event.inputs.wifi == 'true'
         run: |
           cd Padavan/wifi
           sh install_wifi.sh
       - name: Recovery bin files download from remote
+        if: github.event.inputs.config == 'true'
         run: |
           cd PSG1218
           sh install_Setconfig.sh
       - name: Recovery theme files download from remote
+        if: github.event.inputs.theme == 'true'
         run: |
           cd Padavan/touming-Theme
           sh install_Theme.sh
@@ -186,5 +210,5 @@ jobs:
         uses: actions/upload-artifact@main
         if: env.BUILDDONE == 'success'
         with:
-          name: C.PSG1218-Padavan-packages
+          name: chongshengB_K2-Padavan-packages
           path: /opt/images
