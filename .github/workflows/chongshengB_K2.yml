@@ -27,10 +27,6 @@ on:
         type: boolean
         description: '是否替换主题文件'
         default: 'false'
-      asp:
-        type: boolean
-        description: '是否替换界面文件'
-        default: 'true'
       wifi:
         type: boolean
         description: '是否替换wifi文件'
