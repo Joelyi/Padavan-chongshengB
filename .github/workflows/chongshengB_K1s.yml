@@ -97,9 +97,9 @@ jobs:
           cp -f $TNAME/board.h $WORK_PATH/trunk/configs/boards/$TNAME/board.h
           cp -f $TNAME/board.mk $WORK_PATH/trunk/configs/boards/$TNAME/board.mk
           cp -f $TNAME/kernel-3.4.x.config $WORK_PATH/trunk/configs/boards/$TNAME/kernel-3.4.x.config
-          #cd $WORK_PATH/trunk/tools
-          #sed -i "s#1.15.2#1.17.1#g" ./Makefile
-          #sed -i "s#https://golang.google.cn/dl#https://dl.google.com/go#g" ./Makefile
+          cd $WORK_PATH/trunk/tools
+          sed -i "s#1.15.2#1.21.1#g" ./Makefile
+          sed -i "s#https://gomirrors.org/dl/go#https://dl.google.com/go#g" ./Makefile
           echo "复制配置文件结束"  
       - name: Recovery theme files download from remote
         if: github.event.inputs.theme == 'true'
