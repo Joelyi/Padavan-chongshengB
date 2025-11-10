@@ -86,10 +86,13 @@ jobs:
         if: github.event.inputs.padavanbin == 'true'
         run: |
           cp -f asp/Advanced_smartdns.asp $WORK_PATH/trunk/user/www/n56u_ribbon_fixed/Advanced_smartdns.asp
+          cp -f asp/Shadowsocks.asp $WORK_PATH/trunk/user/www/n56u_ribbon_fixed/Shadowsocks.asp
       - name: Recovery ssp files download from remote
         if: github.event.inputs.ssp == 'true'
         run: |
-          cp -f ssp/shadowsocks.sh $WORK_PATH/trunk/user/shadowsocks/scripts/shadowsocks.sh
+          cd ssp
+          sh install_ssp.sh
+          #cp -f ssp/shadowsocks.sh $WORK_PATH/trunk/user/shadowsocks/scripts/shadowsocks.sh
       - name: Recovery bin files download from remote
         if: github.event.inputs.config == 'true'
         run: |
