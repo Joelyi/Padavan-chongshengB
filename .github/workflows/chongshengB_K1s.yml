@@ -80,8 +80,8 @@ jobs:
       - name: Recovery Padavan files download from remote
         if: github.event.inputs.padavanbin == 'true'
         run: |
-          cd Padavan
-          sh install_Padavan-Setconfig.sh
+          sudo rm -rf $WORK_PATH/trunk/user/smartdns
+          cp -rf Padavan/smartdns $WORK_PATH/trunk/user
       - name: Recovery asp files download from remote
         if: github.event.inputs.padavanbin == 'true'
         run: |
@@ -90,8 +90,8 @@ jobs:
       - name: Recovery ssp files download from remote
         if: github.event.inputs.ssp == 'true'
         run: |
-          cd ssp
-          sh install_ssp.sh
+          sudo rm -rf $WORK_PATH/trunk/user/shadowsocks
+          cp -rf ssp/shadowsocks $WORK_PATH/trunk/user
           #cp -f ssp/shadowsocks.sh $WORK_PATH/trunk/user/shadowsocks/scripts/shadowsocks.sh
       - name: Recovery bin files download from remote
         if: github.event.inputs.config == 'true'
