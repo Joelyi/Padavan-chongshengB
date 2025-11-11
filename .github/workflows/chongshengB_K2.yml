@@ -97,9 +97,6 @@ jobs:
         if: github.event.inputs.config == 'true'
         run: |
           cp -f $TNAME/$TNAME.config $WORK_PATH/trunk/configs/templates/$TNAME.config
-          cp -f $TNAME/board.h $WORK_PATH/trunk/configs/boards/$TNAME/board.h
-          cp -f $TNAME/board.mk $WORK_PATH/trunk/configs/boards/$TNAME/board.mk
-          cp -f $TNAME/kernel-3.4.x.config $WORK_PATH/trunk/configs/boards/$TNAME/kernel-3.4.x.config
           cd $WORK_PATH/trunk/tools
           sed -i "s#1.15.2#1.21.1#g" ./Makefile
           sed -i "s#https://gomirrors.org/dl/go#https://dl.google.com/go#g" ./Makefile
