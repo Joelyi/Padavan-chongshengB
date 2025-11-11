@@ -15,18 +15,6 @@ on:
         - 1.24.x
         - 1.34.1
         default: '1.24.x'
-      padavanbin:
-        type: boolean
-        description: '是否替换编译文件'
-        default: 'true'
-      ssp:
-        type: boolean
-        description: '是否替换ssp文件'
-        default: 'true'
-      config:
-        type: boolean
-        description: '是否替换配置文件'
-        default: 'true'
       theme:
         type: boolean
         description: '是否替换主题文件'
@@ -78,23 +66,9 @@ jobs:
           mkdir $TNAME
         
       - name: Recovery Padavan files download from remote
-        if: github.event.inputs.padavanbin == 'true'
         run: |
-          #sudo rm -rf $WORK_PATH/trunk/user/smartdns
           cp -rf Padavan/busybox-1.24.x $WORK_PATH/trunk/user
-      - name: Recovery asp files download from remote
-        if: github.event.inputs.padavanbin == 'true'
-        run: |
-          #cp -f asp/Advanced_smartdns.asp $WORK_PATH/trunk/user/www/n56u_ribbon_fixed/Advanced_smartdns.asp
-          #cp -f asp/Shadowsocks.asp $WORK_PATH/trunk/user/www/n56u_ribbon_fixed/Shadowsocks.asp
-      - name: Recovery ssp files download from remote
-        if: github.event.inputs.ssp == 'true'
-        run: |
-          sudo rm -rf $WORK_PATH/trunk/user/shadowsocks
-          cp -rf ssp/shadowsocks $WORK_PATH/trunk/user
-          #cp -f ssp/shadowsocks.sh $WORK_PATH/trunk/user/shadowsocks/scripts/shadowsocks.sh
       - name: Recovery bin files download from remote
-        if: github.event.inputs.config == 'true'
         run: |
           cp -f $TNAME/$TNAME.config $WORK_PATH/trunk/configs/templates/$TNAME.config
           cp -f $TNAME/board.h $WORK_PATH/trunk/configs/boards/$TNAME/board.h
@@ -114,8 +88,8 @@ jobs:
       - name: Recovery wifi files download from remote
         if: github.event.inputs.wifi == 'true'
         run: |
-          cd wifi
-          sh install_wifi.sh
+          sudo rm -rf $WORK_PATH/trunk/proprietary
+          cp -rf wifi/. $WORK_PATH/trunk
 
       - name: Get current time
         uses: josStorer/get-current-time@v2.0.2
@@ -181,12 +155,12 @@ jobs:
           echo "CONFIG_FIRMWARE_INCLUDE_SOFTETHERVPN_CMD=n" >> .config #SOFTETHERVPN
           echo "CONFIG_FIRMWARE_INCLUDE_SFE=n" >> .config #集成SFE加速
           #
-          echo "CONFIG_FIRMWARE_INCLUDE_SHADOWSOCKS=y" >> .config #SS plus+
+          echo "CONFIG_FIRMWARE_INCLUDE_SHADOWSOCKS=n" >> .config #SS plus+
           echo "CONFIG_FIRMWARE_INCLUDE_V2RAY=n" >> .config #集成v2ray执行文件（3.8M左右)，如果不集成，会从网上下载下来执行，不影响正常使用
           echo "CONFIG_FIRMWARE_INCLUDE_TROJAN=n" >> .config #集成trojan执行文件(1.1M左右)，如果不集成，会从网上下载下来执行，不影响正常使用
-          echo "CONFIG_FIRMWARE_INCLUDE_SSOBFS=y" >> .config # simple-obfs混淆插件
+          echo "CONFIG_FIRMWARE_INCLUDE_SSOBFS=n" >> .config # simple-obfs混淆插件
           echo "CONFIG_FIRMWARE_INCLUDE_SSSERVER=n" >> .config #SS server
-          echo "CONFIG_FIRMWARE_INCLUDE_KUMASOCKS=y" >> .config #socks5
+          echo "CONFIG_FIRMWARE_INCLUDE_KUMASOCKS=n" >> .config #socks5
           #
           echo "CONFIG_FIRMWARE_INCLUDE_IPT2SOCKS=n" >> .config
           echo "CONFIG_FIRMWARE_INCLUDE_MICROSOCKS=n" >> .config
