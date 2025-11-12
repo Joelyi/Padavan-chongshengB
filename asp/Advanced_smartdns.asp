@@ -2,7 +2,7 @@
 <html>
 <head>
 <title><#Web_Title#> - <#menu5_21#></title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">p
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="-1">
 
