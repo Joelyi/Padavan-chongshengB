@@ -85,6 +85,7 @@ jobs:
         run: |
           cp -f asp/Advanced_smartdns.asp $WORK_PATH/trunk/user/www/n56u_ribbon_fixed/Advanced_smartdns.asp
           cp -f asp/Shadowsocks.asp $WORK_PATH/trunk/user/www/n56u_ribbon_fixed/Shadowsocks.asp
+          cp -f shared/defaults.c $WORK_PATH/trunk/user/shared/defaults.c
       - name: Recovery bin files download from remote
         if: github.event.inputs.config == 'true'
         run: |
