@@ -19,10 +19,6 @@ on:
         type: boolean
         description: '是否替换编译文件'
         default: 'false'
-      ssp:
-        type: boolean
-        description: '是否替换ssp文件'
-        default: 'false'
       config:
         type: boolean
         description: '是否替换配置文件'
@@ -77,19 +73,15 @@ jobs:
         if: github.event.inputs.padavanbin == 'true'
         run: |
           sudo rm -rf $WORK_PATH/trunk/user/smartdns
+          sudo rm -rf $WORK_PATH/trunk/user/shadowsocks
           cp -rf Padavan/smartdns $WORK_PATH/trunk/user
+          cp -rf ssp/shadowsocks $WORK_PATH/trunk/user
       - name: Recovery asp files download from remote
         if: github.event.inputs.padavanbin == 'true'
         run: |
           cp -f asp/Advanced_smartdns.asp $WORK_PATH/trunk/user/www/n56u_ribbon_fixed/Advanced_smartdns.asp
           cp -f asp/Shadowsocks.asp $WORK_PATH/trunk/user/www/n56u_ribbon_fixed/Shadowsocks.asp
           cp -f shared/defaults.c $WORK_PATH/trunk/user/shared/defaults.c
-      - name: Recovery ssp files download from remote
-        if: github.event.inputs.ssp == 'true'
-        run: |
-          sudo rm -rf $WORK_PATH/trunk/user/shadowsocks
-          cp -rf ssp/shadowsocks $WORK_PATH/trunk/user
-          #cp -f ssp/shadowsocks.sh $WORK_PATH/trunk/user/shadowsocks/scripts/shadowsocks.sh
       - name: Recovery bin files download from remote
         if: github.event.inputs.config == 'true'
         run: |
@@ -113,6 +105,7 @@ jobs:
           sudo rm -rf $WORK_PATH/trunk/proprietary/rt_wifi/rtpci/3.0.X.X/mt76x2_ap
           sudo rm -rf $WORK_PATH/trunk/proprietary/rt_wifi/rtsoc/2.4.X.X
           sudo rm -rf $WORK_PATH/trunk/proprietary/rt_wifi/rtsoc/2.7.X.X
+          cp -f K2-wifi/ra_nat.c $WORK_PATH/trunk/proprietary/rt_ppe/hw_nat/ra_nat.c
           cp -rf K2-wifi/rtpci/. $WORK_PATH/trunk/proprietary/rt_wifi/rtpci/3.0.X.X
           cp -rf K2-wifi/rtsoc/. $WORK_PATH/trunk/proprietary/rt_wifi/rtsoc
           echo "复制wifi文件结束" 
