@@ -107,12 +107,12 @@ jobs:
           echo "复制主题文件结束"  
       - name: Recovery wifi files download from remote
         if: github.event.inputs.wifi == 'true'
-        run: |
-          cp -f K2-wifi/ra_nat.c $WORK_PATH/trunk/proprietary/rt_ppe/hw_nat/ra_nat.c
+        run: |          
           sudo rm -rf $WORK_PATH/trunk/proprietary/rt_wifi/rtpci/3.0.X.X/mt76x2
           sudo rm -rf $WORK_PATH/trunk/proprietary/rt_wifi/rtpci/3.0.X.X/mt76x2_ap
           sudo rm -rf $WORK_PATH/trunk/proprietary/rt_wifi/rtsoc/2.4.X.X
           sudo rm -rf $WORK_PATH/trunk/proprietary/rt_wifi/rtsoc/2.7.X.X
+          cp -f K2-wifi/ra_nat.c $WORK_PATH/trunk/proprietary/rt_ppe/hw_nat/ra_nat.c
           cp -rf K2-wifi/rtpci/. $WORK_PATH/trunk/proprietary/rt_wifi/rtpci/3.0.X.X
           cp -rf K2-wifi/rtsoc/. $WORK_PATH/trunk/proprietary/rt_wifi/rtsoc
           echo "复制wifi文件结束" 
