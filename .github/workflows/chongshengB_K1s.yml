@@ -41,6 +41,7 @@ env:
   TOOLCHAIN_URL: https://github.com/Yh793/Padavan-build/raw/master/mipsel-linux-uclibc.tar.xz
   WORK_PATH: /opt/rt-n56u
   TNAME: PSG1208s
+  TZ: Asia/Shanghai
   
 jobs:
   build:
@@ -107,15 +108,15 @@ jobs:
       - name: Recovery wifi files download from remote
         if: github.event.inputs.wifi == 'true'
         run: |
-          cd wifi
-          sh install_wifi.sh
-
-      - name: Get current time
-        uses: josStorer/get-current-time@v2.0.2
-        id: current-time
-        with:
-          format: YY.MMDDHH
-          utcOffset: "+08:00"
+          sudo rm -rf $WORK_PATH/trunk/proprietary/rt_wifi/rtpci/3.0.X.X/mt76x2
+          sudo rm -rf $WORK_PATH/trunk/proprietary/rt_wifi/rtpci/3.0.X.X/mt76x2_ap
+          sudo rm -rf $WORK_PATH/trunk/proprietary/rt_wifi/rtsoc/2.4.X.X
+          sudo rm -rf $WORK_PATH/trunk/proprietary/rt_wifi/rtsoc/2.7.X.X
+          cp -rf K2-wifi/mt76x2 $WORK_PATH/trunk/proprietary/rt_wifi/rtpci/3.0.X.X
+          cp -rf K2-wifi/mt76x2_ap $WORK_PATH/trunk/proprietary/rt_wifi/rtpci/3.0.X.X
+          cp -rf K2-wifi/2.4.X.X $WORK_PATH/trunk/proprietary/rt_wifi/rtsoc
+          cp -rf K2-wifi/2.7.X.X $WORK_PATH/trunk/proprietary/rt_wifi/rtsoc
+          echo "复制wifi文件结束" 
 
       - name: Build Firmware
         run: |
