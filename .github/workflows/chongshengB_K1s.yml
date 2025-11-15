@@ -369,6 +369,8 @@ jobs:
           ##为 Minidlna 和 Firefly 包含 ffmpeg 0.11.x（替代 0.6.x）。约 0.1MB
           echo "CONFIG_FIRMWARE_INCLUDE_FFMPEG_NEW=n" >> .config
 
+
+
           ##包含 Transmission 种子下载工具。openssl 约 1.2MB，transmission 约 1.5MB 已删除 请查看/trunk/user/httpd/common.h
           echo "CONFIG_FIRMWARE_INCLUDE_TRANSMISSION=n" >> .config
 
@@ -381,8 +383,13 @@ jobs:
           ##包含 Aria2 WEB 控制界面。约 0.7MB。
           echo "CONFIG_FIRMWARE_INCLUDE_ARIA_WEB_CONTROL=n" >> .config
 
+        
+
           ##下载工具 curl 必备
           echo "CONFIG_FIRMWARE_INCLUDE_CURL=y" >> .config
+
+          ##校园网 已删除 /trunk/user/httpd/common.h
+          echo "CONFIG_FIRMWARE_INCLUDE_SCUTCLIENT=n" >> .config
         
           ## OpenVPN。需要 IPv6 支持。openssl 约 1.2MB，openvpn 约 0.4MB
           echo "CONFIG_FIRMWARE_INCLUDE_OPENVPN=n" >> .config
@@ -390,8 +397,20 @@ jobs:
           ## 广东工业校园认证
           echo "CONFIG_FIRMWARE_INCLUDE_GDUT_DRCOM=n" >> .config
 
+          ## 哆点校园认证
+          echo "CONFIG_FIRMWARE_INCLUDE_DOGCOM=n" >> .config
+
+          ## 锐捷认证
+          echo "CONFIG_FIRMWARE_INCLUDE_MINIEAP=n" >> .config
+
+          ## 南京校园？
+          echo "CONFIG_FIRMWARE_INCLUDE_NJIT_CLIENT=n" >> .config
+
           ## IPV6中继
           echo "CONFIG_FIRMWARE_INCLUDE_NAPT66=n" >> .config
+
+          ## ss服务器
+          echo "CONFIG_FIRMWARE_INCLUDE_SSSERVER=n" >> .config
 
           ## SOFTETHERVPN服务器
           echo "CONFIG_FIRMWARE_INCLUDE_SOFTETHERVPN_SERVER=n" >> .config
@@ -405,8 +424,17 @@ jobs:
           ## DNS转发 已删除 请查看/trunk/user/httpd/common.h
           echo "CONFIG_FIRMWARE_INCLUDE_DNSFORWARDER=n" >> .config
 
+          ## KMS服务器 已删除 /trunk/user/httpd/common.h
+          echo "CONFIG_FIRMWARE_INCLUDE_VLMCSD=n" >> .config
+
+          ## TTYD
+          echo "CONFIG_FIRMWARE_INCLUDE_TTYD=y" >> .config
+
           ## 文件传输工具
           echo "CONFIG_FIRMWARE_INCLUDE_LRZSZ=n" >> .config
+
+          ## 系统状态监控工具
+          echo "CONFIG_FIRMWARE_INCLUDE_HTOP=n" >> .config
 
           ## 文本编辑器
           echo "CONFIG_FIRMWARE_INCLUDE_NANO=n" >> .config
@@ -420,6 +448,9 @@ jobs:
           ## RTL_SDR
           echo "CONFIG_FIRMWARE_INCLUDE_RTL_SDR=n" >> .config
 
+          ## MTR
+          echo "CONFIG_FIRMWARE_INCLUDE_MTR=n" >> .config
+
           ## ipv6端口转发工具
           echo "CONFIG_FIRMWARE_INCLUDE_SOCAT=n" >> .config
 
@@ -428,8 +459,8 @@ jobs:
 
           ## MENTOHUST校园认证 已删除 请查看/trunk/user/httpd/common.h
           echo "CONFIG_FIRMWARE_INCLUDE_MENTOHUST=n" >> .config
-
-          ##################################
+          #########################################################################################
+          
           echo "CONFIG_FIRMWARE_INCLUDE_SOFTETHERVPN_SERVER=n" >> .config #SOFTETHERVPN
           echo "CONFIG_FIRMWARE_INCLUDE_SOFTETHERVPN_CLIENT=n" >> .config #SOFTETHERVPN
           echo "CONFIG_FIRMWARE_INCLUDE_SOFTETHERVPN_CMD=n" >> .config #SOFTETHERVPN
@@ -466,18 +497,7 @@ jobs:
           #     
           echo "CONFIG_FIRMWARE_INCLUDE_WYY=n" >> .config #网易云解锁
           echo "CONFIG_FIRMWARE_INCLUDE_WYYBIN=n" >> .config #网易云解锁GO版本执行文件（4M多）注意固件超大小,不集成会自动下载
-          #校园网相关
-          echo "CONFIG_FIRMWARE_INCLUDE_MENTOHUST=n" >> .config #MENTOHUST
-          echo "CONFIG_FIRMWARE_INCLUDE_SCUTCLIENT=n" >> .config #SCUTCLIENT
-          echo "CONFIG_FIRMWARE_INCLUDE_NJIT_CLIENT=n" >> .config
-          echo "CONFIG_FIRMWARE_INCLUDE_MINIEAP=n" >> .config
-          echo "CONFIG_FIRMWARE_INCLUDE_DOGCOM=n" >> .config
-          echo "CONFIG_FIRMWARE_INCLUDE_NAPT66=n" >> .config
-          echo "CONFIG_FIRMWARE_INCLUDE_TTYD=y" >> .config
-          echo "CONFIG_FIRMWARE_INCLUDE_NANO=n" >> .config
-          echo "CONFIG_FIRMWARE_INCLUDE_VLMCSD=n" >> .config
-          echo "CONFIG_FIRMWARE_INCLUDE_HTOP=n" >> .config
-          echo "CONFIG_FIRMWARE_INCLUDE_MTR=n" >> .config
+
           #########################################################################################
           sudo ./clear_tree
           sudo ./build_firmware_modify $TNAME 0
